@@ -1,10 +1,15 @@
 import React from "react";
+import { useValidation } from "../utils/validation";
 
 const Login = ({ onLogin }) => {
   const [data, setData] = React.useState({
     password: "",
     email: "",
   });
+  const passwordValid = useValidation();
+  const emailValid = useValidation();
+  const saveButtonClassName = `login__save-button 
+  ${(passwordValid.isWrong || emailValid.isWrong) && "login__save-button_disabled"}`;
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;
@@ -34,8 +39,11 @@ const Login = ({ onLogin }) => {
               onChange={handleChange}
               className="login__text login__text_type_email"
               name="email"
+              onBlur={emailValid.onBlur}
             />
-            <span className="login__text-error email-input-error"></span>
+            <span className="login__text-error email-input-error">
+              {emailValid.isWrong && emailValid.errorMessage}
+            </span>
           </label>
           <label className="login__field">
             <input
@@ -48,11 +56,18 @@ const Login = ({ onLogin }) => {
               className="login__text login__text_type_password"
               name="password"
               minLength="4"
+              onBlur={passwordValid.onBlur}
             />
-            <span className="login__text-error password-input-error"></span>
+            <span className="login__text-error password-input-error">
+              {passwordValid.isWrong && passwordValid.errorMessage}
+            </span>
           </label>
         </fieldset>
-        <button className="login__save-button" type="submit">
+        <button
+          disabled={passwordValid.isWrong || emailValid.isWrong}
+          className={saveButtonClassName}
+          type="submit"
+        >
           Войти
         </button>
       </form>

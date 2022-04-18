@@ -14,7 +14,11 @@ function DeleteCardPopup({ isOpen, onClose, onDeleteCard, card }) {
       onClose={onClose}
       isOpen={isOpen}
       onSubmit={handleSubmit}
-    />
+    >
+      <button className="popup__save-button" type="submit">
+        Удалить
+      </button>
+    </PopupWithForm>
   );
 }
 

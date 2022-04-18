@@ -18,10 +18,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [userEmail, setUserEmail] = React.useState({
-    //Users personal data
-    email: "",
-  });
+  const [userEmail, setUserEmail] = React.useState(""); //Users personal data
   const [isInfoTooltipSucceed, setIsInfoTooltipSucceed] = React.useState({
     isOpen: false,
     isSucceed: false,
@@ -41,20 +38,21 @@ const App = () => {
     setLoggedIn(true);
   };
 
+  const checkAuth = (token) => {
+    getContent(token)
+      .then((data) => {
+        if (data.data) {
+          setUserEmail(data.data.email);
+          handleLoggedIn();
+          navigate("/");
+        }
+      })
+      .catch((err) => console.log(`Пользователь не авторизован ${err}`));
+  };
   const tokenCheck = () => {
     const jwt = getToken();
     if (jwt) {
-      getContent(jwt)
-        .then((data) => {
-          if (data.data) {
-            setUserEmail({
-              email: data.data.email,
-            });
-            handleLoggedIn();
-            navigate("/");
-          }
-        })
-        .catch((err) => console.log(`Пользователь не авторизован ${err}`));
+      checkAuth(jwt);
     } else {
       navigate("/sign-in");
     }
@@ -69,6 +67,8 @@ const App = () => {
     register(password, email)
       .then((res) => {
         if (res) {
+          navigate("/sign-in");
+
           setIsInfoTooltipSucceed({
             isOpen: true,
             isSucceed: true,
@@ -90,7 +90,7 @@ const App = () => {
       .then((res) => {
         if (res) {
           setToken(res.token);
-          tokenCheck();
+          checkAuth(res.token);
         }
       })
       .catch((err) => {
@@ -105,9 +105,7 @@ const App = () => {
   //Users' sign out
   const signOut = () => {
     removeToken();
-    setUserEmail({
-      email: "",
-    });
+    setUserEmail("");
     setLoggedIn(false);
   };
 
@@ -134,7 +132,7 @@ const App = () => {
     }
   }, [loggedIn]);
 
-  //Handle states for popupsэ interactions
+  //Handle states for popups interactions
   const handleEditProfilePopup = () => {
     setIsEditProfilePopupOpen(true);
   };
@@ -245,7 +243,7 @@ const App = () => {
               element={
                 <ProtectedRoute loggedIn={loggedIn}>
                   <>
-                    <Header loggedIn={loggedIn} email={userEmail.email} onSignOut={signOut} />
+                    <Header loggedIn={loggedIn} email={userEmail} onSignOut={signOut} />
                     <Main
                       onEditProfile={handleEditProfilePopup}
                       onAddPlace={handleAddPlacePopup}

@@ -1,8 +1,16 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
+import { useValidation } from "../utils/validation";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const avatarRef = React.useRef(null);
+  const avatarValidate = useValidation();
+  const saveButtonClassName = `popup__save-button 
+  ${avatarValidate.isWrong && "popup__save-button_disabled"}`;
+
+  React.useEffect(() => {
+    avatarRef.current.value = "";
+  }, [isOpen]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -10,14 +18,6 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
     onUpdateAvatar({
       avatar: avatarRef.current.value,
     });
-
-    avatarRef.current.value = "";
-  }
-
-  function handleClose() {
-    avatarRef.current.value = "";
-
-    onClose();
   }
 
   return (
@@ -25,7 +25,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
       name="avatar"
       title="Обновить аватар"
       isOpen={isOpen}
-      onClose={handleClose}
+      onClose={onClose}
       onSubmit={handleSubmit}
     >
       <fieldset className="popup__inputs">
@@ -37,11 +37,17 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
             required
             placeholder="Ссылка на новый аватар"
             className="popup__text popup__text_type_avatar"
+            onBlur={avatarValidate.onBlur}
             name="avatar"
           />
-          <span className="popup__text-error avatar-input-error"></span>
+          <span className="popup__text-error avatar-input-error">
+            {avatarValidate.isWrong && avatarValidate.errorMessage}
+          </span>
         </label>
       </fieldset>
+      <button disabled={avatarValidate.isWrong} className={saveButtonClassName} type="submit">
+        Сохранить
+      </button>
     </PopupWithForm>
   );
 }
