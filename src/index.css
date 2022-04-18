@@ -30,6 +30,7 @@
 @import url(./blocks/login/__text-error/login__text-error.css);
 @import url(./blocks/login/__text-error/_active/login__text-error_active.css);
 @import url(./blocks/login/__save-button/login__save-button.css);
+@import url(./blocks/login/__save-button/_disabled/login__save-button_disabled.css);
 
 /* register */
 @import url(./blocks/register/register.css);
@@ -42,6 +43,7 @@
 @import url(./blocks/register/__text-error/register__text-error.css);
 @import url(./blocks/register/__text-error/_active/register__text-error_active.css);
 @import url(./blocks/register/__save-button/register__save-button.css);
+@import url(./blocks/register/__save-button/_disabled/register__save-button_disabled.css);
 @import url(./blocks/register/__hint/register__hint.css);
 @import url(./blocks/register/__link/register__link.css);
 

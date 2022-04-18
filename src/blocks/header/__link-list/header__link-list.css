@@ -18,3 +18,9 @@
     margin-right: 30px;
   }
 }
+
+@media screen and (max-width: 619px) {
+  .header__link-list {
+    margin-right: 0;
+  }
+}

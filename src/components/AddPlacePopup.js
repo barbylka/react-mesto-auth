@@ -1,9 +1,19 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
+import { useValidation } from "../utils/validation";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
   const [name, setName] = React.useState("");
   const [link, setLink] = React.useState("");
+  const nameValid = useValidation();
+  const linkValid = useValidation();
+  const saveButtonClassName = `popup__save-button 
+  ${(nameValid.isWrong || linkValid.isWrong) && "popup__save-button_disabled"}`;
+
+  React.useEffect(() => {
+    setName("");
+    setLink("");
+  }, [isOpen]);
 
   function handleChangeName(e) {
     setName(e.target.value);
@@ -20,16 +30,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       name,
       link,
     });
-
-    setName("");
-    setLink("");
-  }
-
-  function handleClose() {
-    setName("");
-    setLink("");
-
-    onClose();
   }
 
   return (
@@ -37,7 +37,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       name="add"
       title="Новое место"
       isOpen={isOpen}
-      onClose={handleClose}
+      onClose={onClose}
       onSubmit={handleSubmit}
     >
       <fieldset className="popup__inputs">
@@ -53,8 +53,11 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
             name="name"
             minLength="2"
             maxLength="30"
+            onBlur={nameValid.onBlur}
           />
-          <span className="popup__text-error place-input-error"></span>
+          <span className="popup__text-error place-input-error">
+            {nameValid.isWrong && nameValid.errorMessage}
+          </span>
         </label>
         <label className="popup__field">
           <input
@@ -66,10 +69,20 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
             onChange={handleChangeLink}
             className="popup__text popup__text_type_link"
             name="link"
+            onBlur={linkValid.onBlur}
           />
-          <span className="popup__text-error link-input-error"></span>
+          <span className="popup__text-error link-input-error">
+            {linkValid.isWrong && linkValid.errorMessage}
+          </span>
         </label>
       </fieldset>
+      <button
+        disabled={nameValid.isWrong || linkValid.isWrong}
+        className={saveButtonClassName}
+        type="submit"
+      >
+        Добавить
+      </button>
     </PopupWithForm>
   );
 }
