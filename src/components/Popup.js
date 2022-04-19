@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Popup = ({ isOpen, onClose, children }) => {
+export const Popup = ({ isOpen, onClose, children, sectionClassName }) => {
   const ESC_CODE = "Escape";
 
   React.useEffect(() => {
@@ -21,5 +21,11 @@ export const Popup = ({ isOpen, onClose, children }) => {
       document.body.style.overflow = "unset";
     };
   }, [isOpen]);
-  return <>{children}</>;
+
+  return (
+    <section className={sectionClassName}>
+      <div className="popup__overlay" onClick={onClose}></div>
+      {children}
+    </section>
+  );
 };
