@@ -12,8 +12,9 @@ On this site the user can:
 
 - sign-up with fictional data as far as here there is no email authentication;
 - sign-in with registered data, everything is saved with study server;
+- forms validation created with custom hook `useValidation` ;
 - reloading the page doesn't ask sign-in again, you can close and open it again and again;
-- sign-out so that no one can see what pics you did liked and what your name is in the fictional worldñ
+- sign-out so that no one can see what pics you did liked and what your name is in the fictional world;
 - like the places' cards;
 - change the text in the profile lines "name" and "about yourself" or the photo;
 - add and delete cards to the project;
