@@ -2,10 +2,6 @@
 
 This is the updated React version of project [Mesto](https://github.com/barbylka/mesto-react). New features and layout elements have been added. The picture gallery now looks like more familiar blog sites, where users can interact with each other.
 
-**GitHub Pages Link**
-
-The project is published [here](https://barbylka.github.io/react-mesto-auth/)
-
 ## Functions
 
 On this site the user can:
