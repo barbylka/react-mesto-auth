@@ -20,7 +20,7 @@ export const Popup = ({ isOpen, onClose, children, sectionClassName }) => {
       document.removeEventListener("keydown", closeByEsc);
       document.body.style.overflow = "unset";
     };
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   return (
     <section className={sectionClassName}>

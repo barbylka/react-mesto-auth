@@ -6,12 +6,9 @@ function Header({ loggedIn, email, onSignOut, children }) {
   const [isBurgerOpened, setIsBurgerOpened] = React.useState(false);
 
   const BurgerMenuClassName = `header__list ${isBurgerOpened && "header__list_opened"}`;
-  const BurgerButtonClassName = `header__burger-button ${
-    isBurgerOpened && "header__burger-button_hidden"
-  }`;
-  const CloseBurgerButtonClassName = `header__close-burger-button ${
-    isBurgerOpened && "header__close-burger-button_visible"
-  }`;
+  const BurgerButtonClassName = `header__burger-button ${isBurgerOpened && "header__burger-button_hidden"
+    }`;
+  const CloseBurgerButtonClassName = `header__close-burger-button_invisible ${isBurgerOpened && "header__close-burger-button"}`;
   const openBurgerMenu = () => {
     setIsBurgerOpened(true);
   };

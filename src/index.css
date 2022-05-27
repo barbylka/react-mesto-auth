@@ -15,8 +15,8 @@
 @import url(./blocks/header/__list/_opened/header__list_opened.css);
 @import url(./blocks/header/__burger-button/header__burger-button.css);
 @import url(./blocks/header/__burger-button/_hidden/header__burger-button\ _hidden.css);
+@import url(./blocks/header/__close-burger-button/_invisible/close-burger-button_invisible.css);
 @import url(./blocks/header/__close-burger-button/header__close-burger-button.css);
-@import url(./blocks/header/__close-burger-button/_visible/close-burger-button_visible.css);
 @import url(./blocks/header/__link-list/header__link-list.css);
 
 /* login */
@@ -105,4 +105,5 @@
 
 /* footer */
 @import url(./blocks/footer/footer.css);
-@import url(./blocks/footer/__copyright/footer__copyright.css); ;
+@import url(./blocks/footer/__copyright/footer__copyright.css);
+;
