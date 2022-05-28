@@ -50,7 +50,10 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
             required
             placeholder="Имя"
             value={name || ""}
-            onChange={handleChangeName}
+            onChange={(e) => {
+              handleChangeName(e);
+              nameValid.onBlur(e);
+            }}
             className="popup__text popup__text_type_name"
             name="name"
             minLength="2"
@@ -68,7 +71,10 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
             required
             placeholder="О себе"
             value={description || ""}
-            onChange={handleChangeDescription}
+            onChange={(e) => {
+              handleChangeDescription(e);
+              descriptionValid.onBlur(e);
+            }}
             className="popup__text popup__text_type_description"
             name="about"
             minLength="2"
